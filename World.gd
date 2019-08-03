@@ -15,7 +15,8 @@ func orient_obj_to_planet(obj: Node2D):
 func tap():
 	print("Tap")
 	$Planet.bouik()
-	#$Planet.make_grass()
+	$Planet.make_grass()
+	$Planet.make_small_tree()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,7 +26,7 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed:
 			tap()
-			$Planet.make_grass(event.position - $Planet.position)
+			$Planet.start_death()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Planet.gd" type="Script" id=1]
 [ext_resource path="res://assets/planet.png" type="Texture" id=2]
@@ -11,6 +11,10 @@
 [ext_resource path="res://assets/reveil_7.png" type="Texture" id=9]
 [ext_resource path="res://assets/reveil_8.png" type="Texture" id=10]
 [ext_resource path="res://assets/reveil_8-1.png" type="Texture" id=11]
+[ext_resource path="res://assets/death_1.png" type="Texture" id=12]
+[ext_resource path="res://assets/death_2.png" type="Texture" id=13]
+[ext_resource path="res://assets/death_3.png" type="Texture" id=14]
+[ext_resource path="res://assets/death_4.png" type="Texture" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -18,6 +22,11 @@ animations = [ {
 "loop": true,
 "name": "reveil",
 "speed": 0.5
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": false,
+"name": "death",
+"speed": 0.25
 } ]
 
 [sub_resource type="Animation" id=2]
@@ -45,7 +54,7 @@ texture = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "reveil"
-frame = 4
+frame = 6
 playing = true
 
 [node name="Bouik" type="AnimationPlayer" parent="."]
