@@ -2,6 +2,11 @@ extends Node2D
 
 onready var grass = preload("res://Grass.tscn")
 onready var small_tree = preload("res://SmallTree.tscn")
+signal dead
+
+var dying = false
+
+var veg = []
 
 var radius = 225
 
@@ -20,6 +25,7 @@ func make_veg(scene: PackedScene, coef: float):
 	new_veg.position = get_random_coord_radius() * coef
 	orient_obj_to_planet(new_veg)
 	add_child(new_veg)
+	veg.push_back(new_veg)
 
 func make_grass():
 	make_veg(grass, 1.02)
@@ -33,6 +39,7 @@ func orient_obj_to_planet(obj: Node2D):
 
 func start_death():
 	$AnimatedSprite.play("death")
+	dying = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,3 +48,20 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func _on_AnimatedSprite_animation_finished():
+	if dying:
+		emit_signal("dead")
+		for veg_inst in veg:
+			veg_inst.queue_free()
+		veg.clear()
+
+
+func _on_AnimatedSprite_frame_changed():
+	if dying:
+		remove_veg(veg.size()/2)
+
+func remove_veg(amount: int):
+	for i in range(amount):
+		var veg_inst = veg.pop_back()
+		veg_inst.queue_free()
