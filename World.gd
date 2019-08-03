@@ -8,6 +8,8 @@ var last_time_tap = 0
 
 var planet_time_growing: float = 0
 
+var first_tap = false
+
 export var planet_death_threshold = 100
 export var planet_grow_low_threshold = 40
 export var planet_grow_high_threshold = 90
@@ -25,6 +27,9 @@ func update_score(delta: float):
 	print(planet_score)
 
 func tap():
+	if ! first_tap:
+		$AnimationExit.play("Title ninja exit")
+		first_tap = true
 	var time = OS.get_ticks_msec()
 	print(time)
 	print("Tap")
