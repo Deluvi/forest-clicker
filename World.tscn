@@ -10,3 +10,9 @@ script = ExtResource( 1 )
 position = Vector2( 247.362, 448.561 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="DeathCooldown" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+[connection signal="dead" from="Planet" to="." method="_on_Planet_dead"]
+[connection signal="timeout" from="DeathCooldown" to="." method="_on_DeathCooldown_timeout"]

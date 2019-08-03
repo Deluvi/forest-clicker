@@ -54,7 +54,7 @@ texture = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "reveil"
-frame = 6
+frame = 5
 playing = true
 
 [node name="Bouik" type="AnimationPlayer" parent="."]
