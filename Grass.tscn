@@ -1,15 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/herbe_1.png" type="Texture" id=1]
-[ext_resource path="res://assets/herbe_2.png" type="Texture" id=2]
-[ext_resource path="res://assets/herbe_3.png" type="Texture" id=3]
-[ext_resource path="res://assets/herbe_4.png" type="Texture" id=4]
-[ext_resource path="res://assets/herbe_5.png" type="Texture" id=5]
+[ext_resource path="res://Grass.gd" type="Script" id=1]
+[ext_resource path="res://assets/herbe_1.png" type="Texture" id=2]
+[ext_resource path="res://assets/herbe_2.png" type="Texture" id=3]
+[ext_resource path="res://assets/herbe_3.png" type="Texture" id=4]
+[ext_resource path="res://assets/herbe_4.png" type="Texture" id=5]
+[ext_resource path="res://assets/herbe_5.png" type="Texture" id=6]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
-"loop": true,
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": false,
 "name": "default",
 "speed": 0.75
 } ]
@@ -17,8 +18,11 @@ animations = [ {
 [node name="Sprite" type="Node2D"]
 position = Vector2( 0.291992, 0 )
 scale = Vector2( 0.25, 0.25 )
+script = ExtResource( 1 )
 
-[node name="Node2D" type="AnimatedSprite" parent="."]
+[node name="Animation" type="AnimatedSprite" parent="."]
 position = Vector2( 0, 2.33591 )
 z_index = -1
 frames = SubResource( 1 )
+frame = 4
+playing = true
