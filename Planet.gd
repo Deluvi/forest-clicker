@@ -22,6 +22,9 @@ var alternative = -1
 
 var alternative_nbr = 3
 
+var hurt1 = false
+var hurt2 = false
+
 func get_random_coord_radius():
 	var random_vec = Vector2((rng.randf_range(-1,1)),(rng.randf_range(-1,1))).normalized()
 	return random_vec*radius
@@ -77,11 +80,18 @@ func display_hurt_1():
 	$AnimatedSprite.play("hurt")
 	$AnimatedSprite.frame = 0
 	$AnimatedSprite.stop()
+	hurt2 = false
+	if ! hurt1:
+		$Hurt.play()
+		hurt1 = true
 
 func display_hurt_2():
 	$AnimatedSprite.play("hurt")
 	$AnimatedSprite.frame = 1
 	$AnimatedSprite.stop()
+	if ! hurt2:
+		$Hurt.play()
+		hurt2 = true
 
 func start_death():
 	$AnimatedSprite.play("death")
@@ -131,6 +141,8 @@ func resume_life():
 	$AnimatedSprite.play("reveil")
 	$AnimatedSprite.stop()
 	$AnimatedSprite.frame = life_level
+	hurt1 = false
+	hurt2 = false
 
 func _on_AnimatedSprite_animation_finished():
 	if dying:
