@@ -137,6 +137,13 @@ func progress_life():
 			make_big_tree()
 			make_big_tree()
 
+func decrease_life():
+	if ! dying and life_level != 8:
+		life_level -= 1
+		if life_level < 0:
+			life_level = 0
+		$AnimatedSprite.frame = life_level
+
 func resume_life():
 	$AnimatedSprite.play("reveil")
 	$AnimatedSprite.stop()

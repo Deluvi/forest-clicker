@@ -9,16 +9,19 @@ var tap_number = 0
 var last_time_tap = 0
 
 var planet_time_growing: float = 0
+var next_level_growing = 5
+var planet_score_reduction = 5
 
 var first_tap = false
 
 var first_tap_planet = false
 
-export var planet_grow_low_threshold = 40
-export var planet_grow_high_threshold = 90
-export var planet_hurt_threshold_1 = 100
-export var planet_hurt_threshold_2 = 120
-export var planet_death_threshold = 140
+export var planet_sleepy_threshold = 70
+export var planet_grow_low_threshold = 90
+export var planet_grow_high_threshold = 190
+export var planet_hurt_threshold_1 = 200
+export var planet_hurt_threshold_2 = 225
+export var planet_death_threshold = 250
 
 func orient_obj_to_planet(obj: Node2D):
 	var planet_coord = $Planet.position
@@ -27,10 +30,10 @@ func orient_obj_to_planet(obj: Node2D):
 	obj.rotation = angle
 
 func update_score(delta: float):
-	print(delta)
-	var points = (1/(delta/2000))
+	var points = 10
 	planet_score += points
 	print(planet_score)
+	print(planet_time_growing)
 
 func tap():
 	if ! first_tap:
@@ -41,7 +44,6 @@ func tap():
 		$Ambient.play()
 		first_tap_planet = true
 	var time = OS.get_ticks_msec()
-	print(time)
 	$Planet.bouik()
 	tap_number = tap_number + 1
 	update_score(time - last_time_tap)
@@ -58,14 +60,19 @@ func _input(event):
 			tap()
 
 func _process(delta):
-	planet_score -= (delta*2)
+	planet_score -= (delta*planet_score_reduction)
 	if planet_score < 0:
 		planet_score = 0
 	if planet_grow_low_threshold < planet_score and planet_score < planet_grow_high_threshold:
 		planet_time_growing += delta
-	if planet_time_growing > 5:
+	if planet_score < planet_sleepy_threshold:
+		planet_time_growing -= delta
+	if planet_time_growing > next_level_growing:
 		$Planet.progress_life()
 		planet_time_growing = 0
+	if planet_time_growing < 0:
+		$Planet.decrease_life()
+		planet_time_growing = next_level_growing
 	update_planet_visual()
 
 func update_planet_visual():
