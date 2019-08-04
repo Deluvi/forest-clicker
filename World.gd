@@ -32,8 +32,6 @@ func orient_obj_to_planet(obj: Node2D):
 func update_score(delta: float):
 	var points = 10
 	planet_score += points
-	print(planet_score)
-	print(planet_time_growing)
 
 func tap():
 	if ! first_tap:
