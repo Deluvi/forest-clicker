@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://Planet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/Fond.png" type="Texture" id=3]
-[ext_resource path="res://assets/Sprout Planet.png" type="Texture" id=4]
-[ext_resource path="res://assets/zzzz.png" type="Texture" id=5]
-[ext_resource path="res://assets/Tap to grow.png" type="Texture" id=6]
+[ext_resource path="res://assets/sounds/ambiant.ogg" type="AudioStream" id=3]
+[ext_resource path="res://assets/Fond.png" type="Texture" id=4]
+[ext_resource path="res://assets/Sprout Planet.png" type="Texture" id=5]
+[ext_resource path="res://assets/zzzz.png" type="Texture" id=6]
+[ext_resource path="res://assets/Tap to grow.png" type="Texture" id=7]
+[ext_resource path="res://assets/sounds/death.ogg" type="AudioStream" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Title ninja exit"
@@ -71,40 +73,74 @@ tracks/4/keys = {
 "values": [ true, false ]
 }
 
+[sub_resource type="Animation" id=2]
+resource_name = "Respawn"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Planet:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9, 1.9, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.8, 0.8 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0.8, 0.8 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart_planet"
+} ]
+}
+
 [node name="World" type="Node"]
 script = ExtResource( 1 )
 
 [node name="Planet" parent="." instance=ExtResource( 2 )]
 position = Vector2( 247.362, 448.561 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="DeathCooldown" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
+[node name="Ambient" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 
 [node name="Background" type="Sprite" parent="."]
 position = Vector2( 250.972, 440.568 )
 scale = Vector2( 0.714516, 0.708581 )
 z_index = -30
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Title" type="Sprite" parent="."]
 position = Vector2( 250, 57.369 )
 scale = Vector2( 0.8, 0.8 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Zzzz" type="Sprite" parent="."]
-position = Vector2( 416.389, 186.912 )
+position = Vector2( 425.477, 234.626 )
 scale = Vector2( 0.8, 0.8 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="TapToGrow" type="Sprite" parent="."]
 position = Vector2( 250, 788.363 )
 scale = Vector2( 0.8, 0.8 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="AnimationExit" type="AnimationPlayer" parent="."]
 "anims/Title ninja exit" = SubResource( 1 )
+
+[node name="DeathMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="AnimationRespawn" type="AnimationPlayer" parent="."]
+anims/Respawn = SubResource( 2 )
 [connection signal="dead" from="Planet" to="." method="_on_Planet_dead"]
-[connection signal="timeout" from="DeathCooldown" to="." method="_on_DeathCooldown_timeout"]
+[connection signal="finished" from="DeathMusic" to="." method="_on_DeathMusic_finished"]
+[connection signal="animation_finished" from="AnimationRespawn" to="." method="_on_AnimationRespawn_animation_finished"]

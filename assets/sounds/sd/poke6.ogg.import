@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/poke6.ogg-559abe903aa5d5876dd080f5676970f9.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/sd/poke6.ogg"
+dest_files=[ "res://.import/poke6.ogg-559abe903aa5d5876dd080f5676970f9.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

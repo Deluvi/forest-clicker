@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/pousse1.ogg-ca859fdadfd77080bc1b791300acbcbb.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/sd/pousse1.ogg"
+dest_files=[ "res://.import/pousse1.ogg-ca859fdadfd77080bc1b791300acbcbb.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
