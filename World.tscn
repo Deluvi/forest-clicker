@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://Planet.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://assets/zzzz.png" type="Texture" id=6]
 [ext_resource path="res://assets/Tap to grow.png" type="Texture" id=7]
 [ext_resource path="res://assets/sounds/death.ogg" type="AudioStream" id=8]
+[ext_resource path="res://assets/sounds/victoire.ogg" type="AudioStream" id=9]
+[ext_resource path="res://assets/Bavro-Regular.ttf" type="DynamicFontData" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Title ninja exit"
@@ -103,6 +105,21 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="DynamicFont" id=3]
+size = 60
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 45
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 10 )
+
 [node name="World" type="Node"]
 script = ExtResource( 1 )
 
@@ -141,5 +158,30 @@ stream = ExtResource( 8 )
 
 [node name="AnimationRespawn" type="AnimationPlayer" parent="."]
 anims/Respawn = SubResource( 2 )
+
+[node name="WinMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="GameMade" type="Label" parent="."]
+visible = false
+margin_left = 25.0418
+margin_top = 27.8105
+margin_right = 470.042
+margin_bottom = 174.81
+custom_fonts/font = SubResource( 3 )
+text = "Game made by
+Junie & Deluvi"
+
+[node name="Credit" type="Label" parent="."]
+visible = false
+margin_left = 15.4153
+margin_top = 675.724
+margin_right = 488.415
+margin_bottom = 897.724
+custom_fonts/font = SubResource( 4 )
+text = "Art by Junie
+code by deluvi
+Sound by MonPlaisir"
 [connection signal="woken" from="Planet" to="." method="_on_Planet_woken"]
 [connection signal="finished" from="DeathMusic" to="." method="_on_DeathMusic_finished"]
+[connection signal="finished" from="WinMusic" to="." method="_on_WinMusic_finished"]

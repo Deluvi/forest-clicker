@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Grass.gd" type="Script" id=1]
 [ext_resource path="res://assets/herbe_1.png" type="Texture" id=2]
@@ -6,12 +6,32 @@
 [ext_resource path="res://assets/herbe_3.png" type="Texture" id=4]
 [ext_resource path="res://assets/herbe_4.png" type="Texture" id=5]
 [ext_resource path="res://assets/herbe_5.png" type="Texture" id=6]
+[ext_resource path="res://assets/herbe_1_orange.png" type="Texture" id=7]
+[ext_resource path="res://assets/herbe_2_orange.png" type="Texture" id=8]
+[ext_resource path="res://assets/herbe_3_orange.png" type="Texture" id=9]
+[ext_resource path="res://assets/herbe_4_orange.png" type="Texture" id=10]
+[ext_resource path="res://assets/herbe_5_orange.png" type="Texture" id=11]
+[ext_resource path="res://assets/herbe_1_violet.png" type="Texture" id=12]
+[ext_resource path="res://assets/herbe_2_violet.png" type="Texture" id=13]
+[ext_resource path="res://assets/herbe_3_violet.png" type="Texture" id=14]
+[ext_resource path="res://assets/herbe_4_violet.png" type="Texture" id=15]
+[ext_resource path="res://assets/herbe_5_violet.png" type="Texture" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": false,
 "name": "default",
+"speed": 0.75
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": false,
+"name": "alternative2",
+"speed": 0.75
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"loop": false,
+"name": "alternative1",
 "speed": 0.75
 } ]
 
@@ -24,3 +44,4 @@ script = ExtResource( 1 )
 position = Vector2( 0, 2.33591 )
 z_index = -1
 frames = SubResource( 1 )
+animation = "alternative1"

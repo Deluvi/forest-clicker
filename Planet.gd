@@ -18,6 +18,10 @@ var radius = 225
 
 var rng = RandomNumberGenerator.new()
 
+var alternative = -1
+
+var alternative_nbr = 3
+
 func get_random_coord_radius():
 	var random_vec = Vector2((rng.randf_range(-1,1)),(rng.randf_range(-1,1))).normalized()
 	return random_vec*radius
@@ -47,10 +51,14 @@ func make_veg(scene: PackedScene, coef: float):
 		new_veg.position = get_random_coord_radius() * coef
 		orient_obj_to_planet(new_veg)
 		add_child(new_veg)
+		if alternative == 1:
+			new_veg.alternative1()
+		if alternative == 2:
+			new_veg.alternative2()
 		veg.push_back(new_veg)
 
 func make_grass():
-	make_veg(grass, 1.02)
+	make_veg(grass, 1.08)
 
 func make_small_tree():
 	make_veg(small_tree, 1)
@@ -83,6 +91,13 @@ func start_life():
 	$AnimatedSprite.play("reveil")
 	$AnimatedSprite.stop()
 	$AnimatedSprite.frame = 0
+	alternative = (alternative + 1) % alternative_nbr
+	if alternative == 0:
+		$PlanetSprite.play("default")
+	if alternative == 1:
+		$PlanetSprite.play("alternative1")
+	if alternative == 2:
+		$PlanetSprite.play("alternative2")
 	life_level = 0
 	dying = false
 
@@ -132,3 +147,6 @@ func remove_veg(amount: int):
 	for _i in range(amount):
 		var veg_inst = veg.pop_back()
 		veg_inst.queue_free()
+
+func _on_Planet_woken():
+	$Sparkles.emitting = true

@@ -42,11 +42,8 @@ func tap():
 		first_tap_planet = true
 	var time = OS.get_ticks_msec()
 	print(time)
-	print("Tap")
 	$Planet.bouik()
 	tap_number = tap_number + 1
-	#if tap_number == 10:
-#		$Planet.start_death()
 	update_score(time - last_time_tap)
 	last_time_tap = time
 	update_planet_visual()
@@ -72,18 +69,20 @@ func _process(delta):
 	update_planet_visual()
 
 func update_planet_visual():
-	if planet_death_threshold < planet_score:
-		if ! planet_dying:
+	if ! planet_dying:
+		if planet_death_threshold < planet_score:
 			$Planet.start_death()
 			$DeathMusic.play()
 			$Ambient.stop()
+			$GameMade.visible = false
+			$Credit.visible = false
 			planet_dying = true
-	elif planet_hurt_threshold_2 < planet_score:
-		$Planet.display_hurt_2()
-	elif planet_hurt_threshold_1 < planet_score:
-		$Planet.display_hurt_1()
-	else:
-		$Planet.resume_life()
+		elif planet_hurt_threshold_2 < planet_score:
+			$Planet.display_hurt_2()
+		elif planet_hurt_threshold_1 < planet_score:
+			$Planet.display_hurt_1()
+		else:
+			$Planet.resume_life()
 
 func _on_DeathMusic_finished():
 	$AnimationRespawn.play("Respawn")
@@ -95,6 +94,11 @@ func restart_planet():
 	first_tap_planet = false
 	planet_time_growing = 0
 
-
 func _on_Planet_woken():
-	print("Woken")
+	$WinMusic.play()
+	$Ambient.stop()
+	$GameMade.visible = true
+	$Credit.visible = true
+
+func _on_WinMusic_finished():
+	$Ambient.play()
