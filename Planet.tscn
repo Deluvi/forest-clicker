@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Planet.gd" type="Script" id=1]
 [ext_resource path="res://assets/planet.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://assets/death_2.png" type="Texture" id=15]
 [ext_resource path="res://assets/Sparkle.png" type="Texture" id=16]
 [ext_resource path="res://assets/sounds/sd/poke3.ogg" type="AudioStream" id=17]
+[ext_resource path="res://assets/sounds/sd/pousse3.ogg" type="AudioStream" id=18]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -61,7 +62,7 @@ texture = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "hurt"
+animation = "reveil"
 
 [node name="Bouik" type="AnimationPlayer" parent="."]
 anims/Bouik = SubResource( 2 )
@@ -88,5 +89,8 @@ scale_amount = 0.25
 
 [node name="BouikSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 17 )
+
+[node name="LevelUp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]

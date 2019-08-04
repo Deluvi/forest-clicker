@@ -16,7 +16,7 @@ animations = [ {
 } ]
 
 [node name="SmallTree" type="Node2D"]
-scale = Vector2( 0.33, 0.33 )
+scale = Vector2( 0.41, 0.41 )
 z_index = -4
 script = ExtResource( 1 )
 

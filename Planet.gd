@@ -3,8 +3,10 @@ extends Node2D
 onready var grass = preload("res://Grass.tscn")
 onready var small_tree = preload("res://SmallTree.tscn")
 onready var bush = preload("res://Bush.tscn")
+onready var big_tree = preload("res://BigTree.tscn")
 
 signal dead
+signal woken
 
 var dying = false
 
@@ -25,6 +27,19 @@ func bouik():
 		$Bouik.stop()
 		$Bouik.play("Bouik")
 		$BouikSound.play()
+		spawn_veg()
+
+func spawn_veg():
+	make_grass()
+	if 2 < life_level:
+		if randf() < 0.5:
+			make_bush()
+	if 4 < life_level:
+		if randf() < 0.25:
+			make_small_tree()
+	if 6 < life_level:
+		if randf() < 0.20:
+			make_big_tree()
 
 func make_veg(scene: PackedScene, coef: float):
 	if ! dying:
@@ -42,6 +57,9 @@ func make_small_tree():
 
 func make_bush():
 	make_veg(bush, 1)
+
+func make_big_tree():
+	make_veg(big_tree, 1)
 
 func orient_obj_to_planet(obj: Node2D):
 	var angle = (Vector2(0,0).angle_to_point(obj.position)) - 1.570796
@@ -75,6 +93,24 @@ func progress_life():
 	if ! dying:
 		life_level += 1
 		$AnimatedSprite.frame = life_level
+		if life_level == 8:
+			emit_signal("woken")
+		if life_level == 2:
+			$LevelUp.play()
+			make_bush()
+			make_bush()
+			make_bush()
+			make_bush()
+			make_bush()
+		if life_level == 4:
+			$LevelUp.play()
+			make_small_tree()
+			make_small_tree()
+			make_small_tree()
+		if life_level == 6:
+			$LevelUp.play()
+			make_big_tree()
+			make_big_tree()
 
 func resume_life():
 	$AnimatedSprite.play("reveil")

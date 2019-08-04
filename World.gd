@@ -44,10 +44,6 @@ func tap():
 	print(time)
 	print("Tap")
 	$Planet.bouik()
-	$Planet.make_grass()
-	$Planet.make_small_tree()
-	$Planet.make_bush()
-	$Planet.progress_life()
 	tap_number = tap_number + 1
 	#if tap_number == 10:
 #		$Planet.start_death()
@@ -65,11 +61,14 @@ func _input(event):
 			tap()
 
 func _process(delta):
-	planet_score -= (delta/1)
+	planet_score -= (delta*2)
 	if planet_score < 0:
 		planet_score = 0
 	if planet_grow_low_threshold < planet_score and planet_score < planet_grow_high_threshold:
 		planet_time_growing += delta
+	if planet_time_growing > 5:
+		$Planet.progress_life()
+		planet_time_growing = 0
 	update_planet_visual()
 
 func update_planet_visual():
@@ -94,3 +93,8 @@ func restart_planet():
 	planet_score = 0
 	planet_dying = false
 	first_tap_planet = false
+	planet_time_growing = 0
+
+
+func _on_Planet_woken():
+	print("Woken")
